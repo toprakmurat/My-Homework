@@ -21,7 +21,7 @@ input_matrix_transpose = np.array([
 def diagonal(input_matrix=input_matrix):
 	"""
 	Creates a new matrix  that is diagonal of the 'input_matrix' and
-	a new list that contains values except 0 of the new matrix
+	a new list that contains values -except 0- of the new matrix
 	"""
 	try:
 		matrix_type = np.zeros((len(input_matrix), len(input_matrix[0])))
@@ -59,7 +59,7 @@ def lower(input_matrix=input_matrix):
 		return "Input matrix is not square matrix"
 
 def banded(input_matrix=input_matrix, bandwidth=3):
-
+	"""Creates a new matrix only includes the 'bandwidth' diagonal element of the 'input matrix'"""
 	try:
 		zeros_matrix = np.zeros((len(input_matrix), len(input_matrix)))	
 		count = 0
