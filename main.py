@@ -1,7 +1,7 @@
 import numpy as np
 from sympy import *
 
-input_matrix = np.array([
+sample_input_matrix = np.array([
 		[0.99, 0.41, 0.77, 0.92, 0.64],
 		[0.2,  0.89, 0.7,  0.25, 0.38],
 		[0.71, 0.55, 0.27, 0.38, 0.34],
@@ -9,7 +9,7 @@ input_matrix = np.array([
 		[0.69, 0.32, 0.89, 0.42, 0.97]
 ])
 
-input_matrix_transpose = np.array([
+sample_input_matrix_transpose = np.array([
 	[0.12, 0.3,  0.54, 0.75, 0.47],
 	[0.4,  0.97, 0.89, 0.22, 0.71],
 	[0.45, 0.92, 0.51, 0.12, 0.95],
@@ -17,8 +17,15 @@ input_matrix_transpose = np.array([
 	[0.82, 0.41, 0.03, 0.6,  0.35]
 ])
 
+def generate_matrix():
+	"""Generates a random matrix which has a size of random integers between 3 and 10"""
+	x = np.random.randint(3, 10)
+	y = np.random.randint(3, 10)
+	matrix = np.random.rand(x, y)
+	rounded_matrix = np.round(matrix, decimals=2)
+	return rounded_matrix
 
-def diagonal(input_matrix=input_matrix):
+def diagonal(input_matrix=generate_matrix()):
 	"""
 	Creates a new matrix  that is diagonal of the 'input_matrix' and
 	a new list that contains values -except 0- of the new matrix
@@ -38,7 +45,7 @@ def diagonal(input_matrix=input_matrix):
 		print(exception)
 		return "Input matrix is not square matrix"
 
-def upper(input_matrix=input_matrix):
+def upper(input_matrix=generate_matrix()):
 	"""Creates a new matrix that is upside of the diagonal of 'input_matrix'"""
 	try:
 		for i in range(len(input_matrix)):
@@ -48,7 +55,7 @@ def upper(input_matrix=input_matrix):
 		print(exception)
 		return "Input matrix is not square matrix"
 
-def lower(input_matrix=input_matrix):
+def lower(input_matrix=generate_matrix()):
 	"""Creates a new matrix that is downside of the diagonal of 'input_matrix'"""
 	try:
 		for i in range(len(input_matrix)-1):
@@ -58,7 +65,7 @@ def lower(input_matrix=input_matrix):
 		print(exception)
 		return "Input matrix is not square matrix"
 
-def banded(input_matrix=input_matrix, bandwidth=3):
+def banded(input_matrix=generate_matrix(), bandwidth=3):
 	"""Creates a new matrix only includes the 'bandwidth' diagonal element of the 'input matrix'"""
 	try:
 		zeros_matrix = np.zeros((len(input_matrix), len(input_matrix)))	
@@ -83,7 +90,7 @@ def banded(input_matrix=input_matrix, bandwidth=3):
 		print(exception)
 		return "Input matrix is not square matrix"
 
-def transpose(input_matrix=input_matrix_transpose):
+def transpose(input_matrix=generate_matrix()):
 	"""Creates a new matrix that is transpose of the 'input_matrix'"""
 	try:
 		new_matrix = np.zeros((len(input_matrix), len(input_matrix)))
