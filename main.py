@@ -84,7 +84,7 @@ def banded(input_matrix=generate_matrix(), bandwidth=3):
 						new_matrix[i][j] = input_matrix[i][j]
 			return new_matrix
 		elif bandwidth % 2 == 0:
-			raise AttributeError("Bandwidth cannot be an even number. Please enter odd number.")
+			raise AttributeError("Bandwidth cannot be an even number. Please enter an odd number.")
 		raise AttributeError("Input matrix is not square matrix")
 	except Exception as exception:
 		return exception
