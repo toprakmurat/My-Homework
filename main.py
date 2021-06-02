@@ -83,6 +83,8 @@ def banded(input_matrix=generate_matrix(), bandwidth=3):
 					if i+number >= j and i-number <= j:
 						new_matrix[i][j] = input_matrix[i][j]
 			return new_matrix
+		elif bandwidth % 2 == 0:
+			raise AttributeError("Bandwidth cannot be an even number. Please enter odd number.")
 		raise AttributeError("Input matrix is not square matrix")
 	except Exception as exception:
 		return exception
@@ -90,6 +92,7 @@ def banded(input_matrix=generate_matrix(), bandwidth=3):
 def transpose(input_matrix=generate_matrix()):
 	"""Creates a new matrix that is transpose of the 'input_matrix'"""
 	try:
+		print(input_matrix)
 		if is_squared(input_matrix):
 			new_matrix = np.zeros((len(input_matrix), len(input_matrix)))
 			for i in range(len(input_matrix)):
