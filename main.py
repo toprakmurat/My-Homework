@@ -17,6 +17,10 @@ sample_input_matrix_transpose = np.array([
 	[0.82, 0.41, 0.03, 0.6,  0.35]
 ])
 
+def is_squared(matrix):
+    '''Check that all rows have the correct length, not just the first one'''
+    return all(len(row) == len(matrix) for row in matrix)
+
 def generate_matrix():
 	"""Generates a random matrix which has a size of random integers between 3 and 10"""
 	x = np.random.randint(3, 10)
@@ -31,73 +35,67 @@ def diagonal(input_matrix=generate_matrix()):
 	a new list that contains values -except 0- of the new matrix
 	"""
 	try:
-		matrix_type = np.zeros((len(input_matrix), len(input_matrix[0])))
-		list_type = []
+		if is_squared(input_matrix):
+			matrix_type = np.zeros((len(input_matrix), len(input_matrix[0])))
+			list_type = []
 
-		count = 0
-		for lis in input_matrix:
-			list_type.append(lis[count])
-			matrix_type[count][count] = lis[count]
-			count+=1
+			count = 0
+			for lis in input_matrix:
+				list_type.append(lis[count])
+				matrix_type[count][count] = lis[count]
+				count+=1
 
-		return list_type, matrix_type
+			return list_type, matrix_type
+		raise AttributeError("Input matrix is not square matrix")
 	except Exception as exception:
-		print(exception)
-		return "Input matrix is not square matrix"
+		return exception
 
 def upper(input_matrix=generate_matrix()):
 	"""Creates a new matrix that is upside of the diagonal of 'input_matrix'"""
 	try:
-		for i in range(len(input_matrix)):
-			input_matrix[i][0:i] = 0
-		return input_matrix
+		if is_squared(input_matrix):
+			for i in range(len(input_matrix)):
+				input_matrix[i][0:i] = 0
+			return input_matrix
+		raise AttributeError("Input matrix is not square matrix")
 	except Exception as exception:
-		print(exception)
-		return "Input matrix is not square matrix"
+		return exception
 
 def lower(input_matrix=generate_matrix()):
 	"""Creates a new matrix that is downside of the diagonal of 'input_matrix'"""
 	try:
-		for i in range(len(input_matrix)-1):
-			input_matrix[i][i+1:] = 0
-		return input_matrix
+		if is_squared(input_matrix):
+			for i in range(len(input_matrix)-1):
+				input_matrix[i][i+1:] = 0
+			return input_matrix
+		raise AttributeError("Input matrix is not square matrix")
 	except Exception as exception:
-		print(exception)
-		return "Input matrix is not square matrix"
+		return exception
 
 def banded(input_matrix=generate_matrix(), bandwidth=3):
 	"""Creates a new matrix only includes the 'bandwidth' diagonal element of the 'input matrix'"""
 	try:
-		zeros_matrix = np.zeros((len(input_matrix), len(input_matrix)))	
-		count = 0
-		liste=[]
-		for lis in input_matrix:
-			if count == 0 or count == len(input_matrix) - 1:
-				if count == 0:
-					zeros_matrix[0][0:2] = input_matrix[0][0:2]
-				else:
-					zeros_matrix[-1][-1:-3] = input_matrix[-1][-1:-3]
-			elif len(input_matrix) / count < len(input_matrix) / 2:
-				liste.append(input_matrix[count][(count-1):(count+bandwidth-1)])
-				zeros_matrix[count][(count-1):(count+bandwidth-1)] = input_matrix[count][(count-1):(count+bandwidth-1)]
-			else:
-				liste.append(input_matrix[count][(count-1):(count+bandwidth-1)])
-				zeros_matrix[count][(count-1):(count+bandwidth-1)] = input_matrix[count][(count-1):(count+bandwidth-1)]
-			
-			count+=1
-		return zeros_matrix
+		if is_squared(input_matrix):
+			new_matrix = np.zeros((len(input_matrix), len(input_matrix)))
+			number = (bandwidth-1) / 2
+			for i in range(len(input_matrix)):
+				for j in range(len(input_matrix)):
+					if i+number >= j and i-number <= j:
+						new_matrix[i][j] = input_matrix[i][j]
+			return new_matrix
+		raise AttributeError("Input matrix is not square matrix")
 	except Exception as exception:
-		print(exception)
-		return "Input matrix is not square matrix"
+		return exception
 
 def transpose(input_matrix=generate_matrix()):
 	"""Creates a new matrix that is transpose of the 'input_matrix'"""
 	try:
-		new_matrix = np.zeros((len(input_matrix), len(input_matrix)))
-		for i in range(len(input_matrix)):
-			for j in range(len(input_matrix)):
-				new_matrix[i][j] = input_matrix[j][i]
-		return new_matrix
+		if is_squared(input_matrix):
+			new_matrix = np.zeros((len(input_matrix), len(input_matrix)))
+			for i in range(len(input_matrix)):
+				for j in range(len(input_matrix)):
+					new_matrix[i][j] = input_matrix[j][i]
+			return new_matrix
+		raise AttributeError("Input matrix is not square matrix")
 	except Exception as exception:
-		print(exception)
-		return "Input matrix is not square matrix"
+		return exception
